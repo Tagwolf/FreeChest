@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kostenlose Kiste</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            background: url('https://wallpaperaccess.com/full/3962227.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .button-container {
+            position: relative;
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff4500;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #ff6347;
+        }
+        .chest-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff0000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-4xl font-bold mb-6">Kostenlose Kiste erhalten!</h1>
+    <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5a/Shulker_Box_%28S%29_JE2_BE2.png" alt="Grüne Shulker Box" class="chest-img">
+    <div class="button-container">
+        <button id="yesButton" class="btn">Ja</button>
+        <button id="noButton" class="btn">Nein</button>
+    </div>
+    <div id="deleteMessage" class="message">Dein Minecraft Account wurde erfolgreich gelöscht!</div>
+    
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Dein Browser unterstützt kein Audio-Element.
+    </audio>
+
+    <script>
+        const yesButton = document.getElementById("yesButton");
+        const noButton = document.getElementById("noButton");
+        const deleteMessage = document.getElementById("deleteMessage");
+        const backgroundMusic = document.getElementById("backgroundMusic");
+
+        // Musik automatisch abspielen (mit Erlaubnis des Browsers)
+        document.addEventListener('click', function() {
+            backgroundMusic.play().catch(e => console.log("Autoplay wurde blockiert"));
+        }, { once: true });
+
+        yesButton.addEventListener("mouseover", () => {
+            const randomX = Math.random() * 200 - 100;
+            const randomY = Math.random() * 100 - 50;
+            gsap.to(yesButton, { x: randomX, y: randomY, duration: 0.3 });
+        });
+
+        noButton.addEventListener("click", () => {
+            deleteMessage.style.display = "block";
+            gsap.fromTo(deleteMessage, 
+                {scale: 0.5, opacity: 0}, 
+                {scale: 1, opacity: 1, duration: 0.5}
+            );
+        });
+    </script>
+</body>
+</html>
